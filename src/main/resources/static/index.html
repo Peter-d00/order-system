@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小饭馆 · 扫码点餐</title>
+<style>
+  :root {
+    --brand: #b3422a;
+    --brand-dark: #96351f;
+    --ink: #2b2b2b;
+    --muted: #757575;
+    --bg: #faf7f2;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
+  header { background: var(--brand); color: #fff; padding: 20px 16px; }
+  header h1 { font-size: 20px; font-weight: 600; }
+  header p { margin-top: 6px; font-size: 13px; opacity: .88; }
+  main { max-width: 720px; margin: 0 auto; padding: 16px; }
+  #list { display: grid; gap: 12px; }
+  .dish { background: var(--card); border-radius: 8px; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .dish h3 { font-size: 16px; margin-bottom: 6px; }
+  .dish p { font-size: 13px; color: var(--muted); }
+  .dish .price { color: var(--brand); font-weight: 700; font-size: 16px; margin-top: 8px; }
+  button { border: 0; background: var(--brand); color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; white-space: nowrap; }
+  button:hover { background: var(--brand-dark); }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 24px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>小饭馆 · 扫码点餐</h1>
+  <p>挑选你喜欢的菜品，下单功能正在开发中</p>
+</header>
+<main>
+  <div id="list">菜单加载中...</div>
+</main>
+<footer>学习项目 · 从零搭建</footer>
+<script>
+  const list = document.getElementById('list');
+  fetch('/api/menu')
+    .then(r => r.json())
+    .then(items => {
+      list.innerHTML = items.map(d => `
+        <div class="dish">
+          <div>
+            <h3>${d.name}</h3>
+            <p>${d.desc}</p>
+            <div class="price">￥${d.price.toFixed(2)}</div>
+          </div>
+          <button onclick="order('${d.name}')">加入订单</button>
+        </div>`).join('');
+    })
+    .catch(() => { list.textContent = '菜单加载失败，请确认服务已启动'; });
+
+  function order(name) {
+    alert('已选择「' + name + '」\n下单功能将在第三步实现，敬请期待！');
+  }
+</script>
+</body>
+</html>
