@@ -40,39 +40,26 @@
   </section>
 
   <section>
-    <h2>双二维码 <span class="small">同网 / 不同网</span></h2>
+    <h2>双二维码 <span class="small">输入桌号，同网 / 不同网各一张</span></h2>
+    <div class="table-control">
+      <label>
+        <span>桌号</span>
+        <input id="tableInput" value="A01" maxlength="10" placeholder="例如 A01">
+      </label>
+      <button class="primary" onclick="updateDualQr()">更新二维码</button>
+    </div>
     <div class="dual-qr">
       <div class="qr-card">
         <div class="label">同网扫码 <span>同一 Wi-Fi</span></div>
         <img id="lanQr" class="qr" alt="同网二维码">
         <div id="lanQrUrl" class="url"></div>
+        <a id="lanQrDownload" class="download" download>下载同网二维码</a>
       </div>
       <div class="qr-card">
         <div class="label">不同网扫码 <span>手机流量 / 其他网络</span></div>
         <img id="publicQr" class="qr" alt="不同网二维码">
         <div id="publicQrUrl" class="url"></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2>桌号二维码生成 <span class="small">输入桌号即可生成</span></h2>
-    <div class="qr-maker">
-      <label>
-        <span>桌号</span>
-        <input id="tableInput" value="A01" maxlength="10" placeholder="例如 A01">
-      </label>
-      <label>
-        <span>访问地址</span>
-        <select id="baseSelect"></select>
-      </label>
-      <button class="primary" onclick="generateCustomQr()">生成二维码</button>
-    </div>
-    <div id="qrResult" class="qr-result hidden">
-      <img id="customQr" class="qr" alt="桌号二维码">
-      <div class="qr-info">
-        <div id="customUrl" class="url"></div>
-        <a id="qrDownload" class="download" download>下载二维码</a>
+        <a id="publicQrDownload" class="download" download>下载不同网二维码</a>
       </div>
     </div>
   </section>

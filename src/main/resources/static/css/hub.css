@@ -102,18 +102,18 @@ a.page .path { color: var(--muted); font-size: 11px; margin-top: 4px; }
 .qr-card .qr { width: 180px; height: 180px; }
 .qr-card .url { font-size: 11px; color: var(--muted); text-align: center; word-break: break-all; }
 
-.qr-maker {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr auto;
+.table-control {
+  display: flex;
   gap: 10px;
-  align-items: end;
+  align-items: flex-end;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 14px;
+  margin-bottom: 12px;
 }
-.qr-maker label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--muted); }
-.qr-maker input, .qr-maker select {
+.table-control label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--muted); flex: 1; max-width: 240px; }
+.table-control input {
   background: var(--surface-2);
   border: 1px solid var(--line);
   color: var(--ink);
@@ -123,7 +123,7 @@ a.page .path { color: var(--muted); font-size: 11px; margin-top: 4px; }
   outline: none;
   min-height: 38px;
 }
-.qr-maker input:focus, .qr-maker select:focus { border-color: var(--gold); }
+.table-control input:focus { border-color: var(--gold); }
 .primary {
   background: var(--gold);
   color: #17130e;
@@ -136,18 +136,6 @@ a.page .path { color: var(--muted); font-size: 11px; margin-top: 4px; }
 }
 .primary:hover { background: var(--gold-light); }
 .primary:active { transform: scale(.97); }
-.qr-result {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  margin-top: 12px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 14px;
-}
-.qr-result .qr { width: 160px; height: 160px; flex: none; }
-.qr-info { min-width: 0; }
 .download {
   display: inline-block;
   margin-top: 10px;
@@ -163,9 +151,8 @@ footer { margin-top: 30px; display: flex; flex-direction: column; gap: 5px; colo
 @media (max-width: 560px) {
   .hub-head { align-items: flex-start; flex-direction: column; }
   .page-grid { grid-template-columns: 1fr; }
-  .qr-maker { grid-template-columns: 1fr; }
-  .qr-result { flex-direction: column; align-items: flex-start; }
-  .qr-result .qr { width: 140px; height: 140px; }
+  .table-control { flex-direction: column; align-items: stretch; }
+  .table-control label { max-width: none; }
   .dual-qr { grid-template-columns: 1fr; }
   .qr-card .qr { width: 160px; height: 160px; }
 }
