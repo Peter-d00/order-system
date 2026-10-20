@@ -107,6 +107,42 @@ function generateCustomQr() {
   download.href = src;
   download.download = 'table-' + table + '.png';
   el('qrResult').classList.remove('hidden');
+  renderDualQr();
+}
+
+function setImgSrc(img, url) {
+  if (!url) {
+    img.removeAttribute('src');
+    delete img.dataset.loaded;
+    return;
+  }
+  if (img.dataset.loaded !== url) {
+    img.dataset.loaded = url;
+    img.src = qrSrc(url);
+  }
+}
+
+function renderDualQr() {
+  const data = state.hub;
+  if (!data) return;
+  const table = el('tableInput').value.trim() || 'A01';
+  const lanBase = data.lan && data.lan.length ? new URL(data.lan[0].url).origin : '';
+  const publicBase = data.publicUrl ? new URL(data.publicUrl).origin : '';
+  const lanUrl = lanBase ? lanBase + '/?table=' + encodeURIComponent(table) : '';
+  const publicUrl = publicBase ? publicBase + '/?table=' + encodeURIComponent(table) : '';
+
+  setImgSrc(el('lanQr'), lanUrl);
+  el('lanQrUrl').textContent = lanUrl || '未检测到局域网地址';
+
+  const publicImg = el('publicQr');
+  if (publicUrl) {
+    publicImg.classList.remove('hidden');
+    setImgSrc(publicImg, publicUrl);
+    el('publicQrUrl').textContent = publicUrl;
+  } else {
+    publicImg.classList.add('hidden');
+    el('publicQrUrl').textContent = '未检测到公网隧道';
+  }
 }
 
 async function loadHub() {
@@ -118,6 +154,7 @@ async function loadHub() {
     renderLan(data.lan);
     renderPublic(data.publicUrl);
     renderBaseOptions(data);
+    renderDualQr();
     el('statusDot').classList.add('ok');
     el('statusText').textContent = data.publicUrl ? '局域网 + 公网可用' : '局域网可用';
     el('updatedAt').textContent = '自动更新于 ' + new Date().toLocaleTimeString('zh-CN', { hour12: false });

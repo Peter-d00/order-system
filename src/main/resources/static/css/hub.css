@@ -86,6 +86,22 @@ a.page .path { color: var(--muted); font-size: 11px; margin-top: 4px; }
 .public-card .label { font-size: 13px; margin-bottom: 6px; }
 .public-card .note { color: var(--muted); font-size: 11px; margin-top: 8px; line-height: 1.6; }
 
+.dual-qr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.qr-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.qr-card .label { font-size: 13px; font-weight: 600; text-align: center; }
+.qr-card .label span { color: var(--muted); font-size: 11px; font-weight: 400; margin-left: 4px; }
+.qr-card .qr { width: 180px; height: 180px; }
+.qr-card .url { font-size: 11px; color: var(--muted); text-align: center; word-break: break-all; }
+
 .qr-maker {
   display: grid;
   grid-template-columns: 1fr 1.4fr auto;
@@ -150,4 +166,6 @@ footer { margin-top: 30px; display: flex; flex-direction: column; gap: 5px; colo
   .qr-maker { grid-template-columns: 1fr; }
   .qr-result { flex-direction: column; align-items: flex-start; }
   .qr-result .qr { width: 140px; height: 140px; }
+  .dual-qr { grid-template-columns: 1fr; }
+  .qr-card .qr { width: 160px; height: 160px; }
 }
