@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>菜品管理 · 小饭馆</title>
+<link rel="stylesheet" href="/css/menu-admin.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="/merchant.html">← 返回订单</a>
+  <div class="brand"><span class="mark">小</span><span>菜品管理</span></div>
+  <button class="logout" onclick="logout()">退出</button>
+</header>
+
+<main>
+  <div class="toolbar">
+    <span id="updatedAt" class="muted">加载中…</span>
+    <button class="refresh" onclick="loadMenu()">刷新</button>
+  </div>
+  <section id="menuList" class="menu-list"></section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="/js/menu-admin.js"></script>
+</body>
+</html>
