@@ -5,14 +5,6 @@ function qrSrc(url) {
   return '/api/hub/qr?data=' + encodeURIComponent(url);
 }
 
-function setQr(img, url) {
-  if (!url) return;
-  if (img.dataset.url !== url) {
-    img.dataset.url = url;
-    img.src = qrSrc(url);
-  }
-}
-
 function publicPhoneUrl(base) {
   if (!base) return '';
   return base.replace(/\/$/, '') + '/?table=A01';
@@ -47,9 +39,7 @@ function renderLan(list) {
         <div class="url">${item.url}</div>
         <a class="open" href="${item.url}" target="_blank">在浏览器打开</a>
       </div>
-      <img class="qr" data-url="${item.url}" alt="局域网二维码">
     </div>`).join('');
-  container.querySelectorAll('.qr').forEach((img) => setQr(img, img.dataset.url));
 }
 
 function renderPublic(publicUrl) {
@@ -67,9 +57,7 @@ function renderPublic(publicUrl) {
       <div class="url">${phoneUrl}</div>
       <div class="note">隧道重启后地址会变化，页面会在 5 秒内自动更新。</div>
       <a class="open" href="${phoneUrl}" target="_blank">在浏览器打开</a>
-    </div>
-    <img class="qr" data-url="${phoneUrl}" alt="公网二维码">`;
-  setQr(container.querySelector('.qr'), phoneUrl);
+    </div>`;
 }
 
 function baseOptions(data) {

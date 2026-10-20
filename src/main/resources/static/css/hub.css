@@ -75,13 +75,13 @@ a.page .path { color: var(--muted); font-size: 11px; margin-top: 4px; }
   border-radius: 8px;
   padding: 14px;
 }
-.lan-card { display: grid; grid-template-columns: 1fr 120px; gap: 14px; align-items: center; }
+.lan-card { display: block; }
 .lan-card .net { color: var(--muted); font-size: 11px; margin-bottom: 5px; }
 .lan-card .url, .public-card .url { color: var(--gold-light); font-size: 13px; word-break: break-all; }
 .lan-card .open { display: inline-block; margin-top: 10px; color: var(--ink); font-size: 12px; text-decoration: none; border-bottom: 1px solid rgba(216,163,74,.45); }
 .qr { width: 120px; height: 120px; background: #fff; border-radius: 6px; display: block; }
 
-.public-card { display: grid; grid-template-columns: 1fr 140px; gap: 14px; align-items: center; }
+.public-card { display: block; }
 .public-card.empty { display: block; color: var(--muted); font-size: 13px; }
 .public-card .label { font-size: 13px; margin-bottom: 6px; }
 .public-card .note { color: var(--muted); font-size: 11px; margin-top: 8px; line-height: 1.6; }
@@ -146,9 +146,6 @@ footer { margin-top: 30px; display: flex; flex-direction: column; gap: 5px; colo
 
 @media (max-width: 560px) {
   .hub-head { align-items: flex-start; flex-direction: column; }
-  .lan-card { grid-template-columns: 1fr 96px; }
-  .qr { width: 96px; height: 96px; }
-  .public-card { grid-template-columns: 1fr 96px; }
   .page-grid { grid-template-columns: 1fr; }
   .qr-maker { grid-template-columns: 1fr; }
   .qr-result { flex-direction: column; align-items: flex-start; }
