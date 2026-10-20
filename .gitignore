@@ -1,5 +1,20 @@
+# 构建产物
 target/
 *.class
+
+# IDE
 .idea/
 *.iml
 .vscode/
+
+# 运行日志
+*.log
+*.err
+
+# 本地生成脚本与生成参数（菜品图已入库，生成过程不纳入版本库）
+work/
+*.webp.json
+
+# 系统文件
+Thumbs.db
+.DS_Store
