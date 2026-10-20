@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>订单进度 · 小饭馆</title>
+<link rel="stylesheet" href="/css/order.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="back" href="/">← 返回菜单</a>
+  <div class="brand"><span class="mark">小</span><span>订单进度</span></div>
+</header>
+
+<main>
+  <section id="lookup" class="lookup hidden">
+    <span class="eyebrow">ORDER LOOKUP</span>
+    <h1>查询订单</h1>
+    <p class="muted">输入订单号查看当前进度</p>
+    <div class="lookup-row">
+      <input id="orderIdInput" inputmode="numeric" placeholder="例如 12">
+      <button class="primary" onclick="lookup()">查询</button>
+    </div>
+  </section>
+
+  <section id="orderView" class="order-view hidden">
+    <div class="order-head">
+      <div>
+        <span class="eyebrow">ORDER</span>
+        <h1 id="orderTitle">#--</h1>
+      </div>
+      <span id="statusBadge" class="status-badge">待接单</span>
+    </div>
+
+    <div id="timeline" class="timeline"></div>
+    <p id="statusHint" class="status-hint"></p>
+
+    <div class="meta-row">
+      <span>桌号 <b id="tableNo">--</b></span>
+      <span>下单时间 <b id="createdAt">--</b></span>
+    </div>
+
+    <h2>订单明细</h2>
+    <div id="items" class="items"></div>
+    <div class="total-row">合计 <b id="total">￥0.00</b></div>
+    <p class="refresh-note">页面每 5 秒自动刷新，无需手动操作</p>
+  </section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="/js/order.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+:root {
+  --bg: #0e0d0b;
+  --surface: #181512;
+  --surface-2: #211c17;
+  --line: #332b23;
+  --ink: #f4ede2;
+  --muted: #a29384;
+  --gold: #d8a34a;
+  --gold-light: #f0c97a;
+  --green: #7fbf8a;
+  --blue: #7fb3d5;
+  --amber: #e0a458;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  min-height: 100vh;
+}
+button { font: inherit; cursor: pointer; border: 0; touch-action: manipulation; }
+button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.muted { color: var(--muted); }
+.hidden { display: none !important; }
+.eyebrow { color: var(--gold); font-size: 11px; letter-spacing: 4px; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(24, 21, 18, 0.94);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+.back { color: var(--muted); text-decoration: none; font-size: 13px; }
+.back:hover { color: var(--ink); }
+.brand { display: flex; align-items: center; gap: 10px; }
+.mark {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  display: grid;
+  place-items: center;
+  font-family: "Songti SC", "SimSun", serif;
+  font-size: 19px;
+}
+.brand span:last-child { font-size: 13px; letter-spacing: 2px; color: var(--muted); }
+
+main { max-width: 640px; margin: 0 auto; padding: 26px 18px 60px; }
+.lookup { text-align: center; padding: 60px 0; }
+.lookup h1 { font-family: "Songti SC", "SimSun", serif; font-size: 30px; font-weight: 500; margin: 12px 0 8px; }
+.lookup-row { display: flex; gap: 10px; margin-top: 24px; }
+.lookup-row input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 16px;
+  outline: none;
+}
+.lookup-row input:focus { border-color: var(--gold); }
+.primary {
+  background: var(--gold);
+  color: #17130e;
+  border-radius: 8px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+.primary:hover { background: var(--gold-light); }
+.primary:active { transform: scale(0.96); }
+
+.order-view {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+}
+.order-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.order-head h1 { font-family: "Songti SC", "SimSun", serif; font-size: 32px; font-weight: 500; margin-top: 4px; }
+.status-badge {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(224, 164, 88, 0.12);
+  color: var(--amber);
+  border: 1px solid rgba(224, 164, 88, 0.35);
+  white-space: nowrap;
+}
+.status-badge.preparing { background: rgba(127, 179, 213, 0.12); color: var(--blue); border-color: rgba(127, 179, 213, 0.35); }
+.status-badge.done { background: rgba(127, 191, 138, 0.12); color: var(--green); border-color: rgba(127, 191, 138, 0.35); }
+
+.timeline { display: flex; align-items: flex-start; justify-content: space-between; margin: 28px 0 12px; position: relative; }
+.step { flex: 1; text-align: center; position: relative; }
+.step::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: 100%;
+  height: 1px;
+  background: var(--line);
+  z-index: 0;
+}
+.step:last-child::after { display: none; }
+.step.done::after, .step.current::after { background: var(--gold); }
+.step-dot {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+}
+.step.done .step-dot { background: var(--gold); border-color: var(--gold); color: #17130e; }
+.step.current .step-dot { border-color: var(--gold); color: var(--gold-light); box-shadow: 0 0 0 4px rgba(216, 163, 74, 0.12); }
+.step-label { font-size: 12px; color: var(--muted); }
+.step.done .step-label, .step.current .step-label { color: var(--ink); }
+.status-hint { text-align: center; color: var(--muted); font-size: 13px; margin: 4px 0 22px; }
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+}
+.meta-row b { color: var(--ink); font-weight: 500; }
+
+h2 { font-family: "Songti SC", "SimSun", serif; font-size: 19px; font-weight: 500; margin: 20px 0 12px; }
+.items { display: flex; flex-direction: column; gap: 10px; }
+.item { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center; }
+.item img { width: 52px; height: 52px; border-radius: 6px; object-fit: cover; display: block; background: var(--surface-2); }
+.item .name { font-size: 14px; font-weight: 600; }
+.item .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+.item .line-total { color: var(--gold-light); font-size: 14px; white-space: nowrap; }
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+}
+.total-row b { color: var(--gold-light); font-size: 24px; }
+.refresh-note { color: var(--muted); font-size: 11px; text-align: center; margin-top: 18px; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 12px);
+  background: rgba(244, 237, 226, 0.94);
+  color: #17130e;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+.toast.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+
+@media (max-width: 480px) {
+  .order-view { padding: 18px 14px; }
+  .order-head h1 { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
