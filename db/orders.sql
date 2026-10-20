@@ -1,0 +1,20 @@
+USE order_system;
+
+CREATE TABLE IF NOT EXISTS orders (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  table_no VARCHAR(20) NOT NULL,
+  total_price DECIMAL(10, 2) NOT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
+CREATE TABLE IF NOT EXISTS order_items (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  order_id INT NOT NULL,
+  menu_id INT NOT NULL,
+  dish_name VARCHAR(50) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  quantity INT NOT NULL,
+  CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id),
+  CONSTRAINT fk_order_items_menu FOREIGN KEY (menu_id) REFERENCES menu(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;

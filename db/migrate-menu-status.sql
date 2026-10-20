@@ -1,0 +1,7 @@
+USE order_system;
+
+ALTER TABLE menu
+  ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT 'ON_SALE';
+
+UPDATE menu
+SET status = CASE WHEN available = 1 THEN 'ON_SALE' ELSE 'OFF_SHELF' END;
