@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小饭馆项目入口</title>
+<link rel="stylesheet" href="/css/hub.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="hub-head">
+    <div class="brand">
+      <span class="mark">小</span>
+      <div>
+        <h1>小饭馆项目入口</h1>
+        <p>扫码点餐系统 · 自动更新地址</p>
+      </div>
+    </div>
+    <div class="status"><span class="dot" id="statusDot"></span><span id="statusText">加载中…</span></div>
+  </header>
+
+  <p class="hint">
+    页面每 5 秒自动刷新当前网络和公网隧道地址；二维码自动生成，不需要手动更新。
+    手机与电脑连同一个 Wi-Fi 用局域网地址；不同网络用公网临时地址。
+  </p>
+
+  <section>
+    <h2>常用页面 <span class="small">本机</span></h2>
+    <div id="pages" class="page-grid"></div>
+  </section>
+
+  <section>
+    <h2>局域网地址 <span class="small">手机同一 Wi-Fi 扫码</span></h2>
+    <div id="lanList" class="lan-list"></div>
+  </section>
+
+  <section>
+    <h2>公网地址 <span class="small">手机任意网络</span></h2>
+    <div id="publicCard" class="public-card"></div>
+  </section>
+
+  <section>
+    <h2>桌号二维码生成 <span class="small">输入桌号即可生成</span></h2>
+    <div class="qr-maker">
+      <label>
+        <span>桌号</span>
+        <input id="tableInput" value="A01" maxlength="10" placeholder="例如 A01">
+      </label>
+      <label>
+        <span>访问地址</span>
+        <select id="baseSelect"></select>
+      </label>
+      <button class="primary" onclick="generateCustomQr()">生成二维码</button>
+    </div>
+    <div id="qrResult" class="qr-result hidden">
+      <img id="customQr" class="qr" alt="桌号二维码">
+      <div class="qr-info">
+        <div id="customUrl" class="url"></div>
+        <a id="qrDownload" class="download" download>下载二维码</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span id="updatedAt">等待更新…</span>
+    <span>商家账号见项目文档；公网地址为 Cloudflare 临时隧道，隧道重启后会变化。</span>
+  </footer>
+</main>
+<script src="/js/hub.js"></script>
+</body>
+</html>
