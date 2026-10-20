@@ -4,60 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>小饭馆 · 扫码点餐</title>
-<style>
-  :root {
-    --brand: #b3422a;
-    --brand-dark: #96351f;
-    --ink: #2b2b2b;
-    --muted: #757575;
-    --bg: #faf7f2;
-    --card: #ffffff;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--ink); font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
-  header { background: var(--brand); color: #fff; padding: 20px 16px; }
-  header h1 { font-size: 20px; font-weight: 600; }
-  header p { margin-top: 6px; font-size: 13px; opacity: .88; }
-  main { max-width: 720px; margin: 0 auto; padding: 16px; }
-  #list { display: grid; gap: 12px; }
-  .dish { background: var(--card); border-radius: 8px; padding: 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-  .dish h3 { font-size: 16px; margin-bottom: 6px; }
-  .dish p { font-size: 13px; color: var(--muted); }
-  .dish .price { color: var(--brand); font-weight: 700; font-size: 16px; margin-top: 8px; }
-  button { border: 0; background: var(--brand); color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; white-space: nowrap; }
-  button:hover { background: var(--brand-dark); }
-  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 24px 0; }
-</style>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<header>
-  <h1>小饭馆 · 扫码点餐</h1>
-  <p>挑选你喜欢的菜品，下单功能正在开发中</p>
+<header class="hero">
+  <div class="hero-bg" style="background-image:url('/images/gongbao.webp')"></div>
+  <div class="hero-inner">
+    <div class="brand-row">
+      <div class="brand-mark">小</div>
+      <div class="brand-text">
+        <h1>小饭馆</h1>
+        <p>SCAN · ORDER · ENJOY</p>
+      </div>
+      <div class="table-chip">桌号 <strong id="tableNo">A01</strong></div>
+    </div>
+    <div class="hero-copy">
+      <span class="eyebrow">今日菜单</span>
+      <h2>认真做菜，<br>好好吃饭。</h2>
+      <p>扫码点餐 · 现点现做</p>
+    </div>
+  </div>
 </header>
-<main>
-  <div id="list">菜单加载中...</div>
-</main>
-<footer>学习项目 · 从零搭建</footer>
-<script>
-  const list = document.getElementById('list');
-  fetch('/api/menu')
-    .then(r => r.json())
-    .then(items => {
-      list.innerHTML = items.map(d => `
-        <div class="dish">
-          <div>
-            <h3>${d.name}</h3>
-            <p>${d.desc}</p>
-            <div class="price">￥${d.price.toFixed(2)}</div>
-          </div>
-          <button onclick="order('${d.name}')">加入订单</button>
-        </div>`).join('');
-    })
-    .catch(() => { list.textContent = '菜单加载失败，请确认服务已启动'; });
 
-  function order(name) {
-    alert('已选择「' + name + '」\n下单功能将在第三步实现，敬请期待！');
-  }
-</script>
+<main>
+  <section class="menu-head">
+    <h2>招牌菜</h2>
+    <span id="menuCount" class="muted">加载中…</span>
+  </section>
+  <div id="list" class="menu-list"></div>
+</main>
+
+<div id="cartBar" class="cart-bar">
+  <button class="cart-summary" onclick="openCart()">
+    <span class="cart-dot" id="cartBadge">0</span>
+    <span class="cart-text">已选 <b id="cartCount">0</b> 份 · ￥<b id="cartTotal">0.00</b></span>
+  </button>
+  <button class="cart-arrow" onclick="openCart()" aria-label="上拉查看已选菜品">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6 14l6-6 6 6"/>
+    </svg>
+  </button>
+  <button class="primary" onclick="openCart()">去结算</button>
+</div>
+
+<div id="overlay" class="overlay">
+  <section id="cartPanel" class="panel">
+    <div class="panel-handle"></div>
+    <header class="panel-head">
+      <div>
+        <span class="eyebrow">确认订单</span>
+        <h2>桌号 <span id="panelTable">A01</span></h2>
+      </div>
+      <button class="icon-btn" onclick="closePanels()" aria-label="关闭">×</button>
+    </header>
+    <div id="cartList" class="cart-list"></div>
+    <div class="panel-total">合计 <b id="panelTotal">￥0.00</b></div>
+    <button class="primary block" onclick="submitOrder()">提交订单</button>
+  </section>
+
+  <section id="spicePanel" class="panel hidden">
+    <div class="panel-handle"></div>
+    <header class="panel-head">
+      <div>
+        <span class="eyebrow">选择辣度</span>
+        <h2 id="spiceDishName">宫保鸡丁</h2>
+      </div>
+      <button class="icon-btn" onclick="closePanels()" aria-label="关闭">×</button>
+    </header>
+    <div class="spice-dish">
+      <img id="spiceDishImg" class="spice-thumb" alt="">
+      <div class="spice-dish-info">
+        <p id="spiceDishDesc" class="muted"></p>
+        <div class="price" id="spiceDishPrice"></div>
+      </div>
+    </div>
+    <div id="spiceOptions" class="spice-options"></div>
+    <button class="primary block" onclick="confirmSpiceAdd()">确认加入</button>
+  </section>
+
+  <section id="successPanel" class="panel success">
+    <div class="success-mark">✓</div>
+    <span class="eyebrow">ORDER CONFIRMED</span>
+    <h2>下单成功</h2>
+    <p class="muted">订单号 <b id="orderId"></b> · 桌号 <b id="orderTable"></b></p>
+    <div id="orderItems" class="order-items"></div>
+    <div class="panel-total">合计 <b id="orderTotal"></b></div>
+    <button class="primary block" onclick="viewOrderStatus()">查看订单进度</button>
+    <button class="link-btn" onclick="closeSuccess()">继续点餐</button>
+  </section>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/js/app.js"></script>
 </body>
 </html>

@@ -1,29 +1,51 @@
 package com.liuyuxian.order.controller;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class MenuController {
 
-    // 第一步：菜单数据先写在代码里；第二步我们会改成从数据库读取
-    public record MenuItem(int id, String name, double price, String desc) {}
+    private final JdbcTemplate jdbcTemplate;
 
-    private static final List<MenuItem> MENU = List.of(
-            new MenuItem(1, "宫保鸡丁", 28.0, "经典川菜，花生米配大块鸡丁"),
-            new MenuItem(2, "鱼香肉丝", 26.0, "酸甜微辣，米饭杀手"),
-            new MenuItem(3, "麻婆豆腐", 18.0, "麻辣鲜香，豆腐嫩滑"),
-            new MenuItem(4, "番茄炒蛋", 16.0, "家常味道，老少皆宜"),
-            new MenuItem(5, "红烧肉", 38.0, "肥而不腻，入口即化"),
-            new MenuItem(6, "酸辣汤", 12.0, "酸辣开胃，餐前暖胃")
-    );
+    public MenuController(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public record MenuItem(int id, String name, double price, String desc, String status,
+                           boolean canChooseSpicy, List<String> spicyOptions,
+                           String recommendation, String notes) {}
 
     @GetMapping("/menu")
     public List<MenuItem> menu() {
-        return MENU;
+        String customerSql = "SELECT id, name, price, description, status, can_choose_spicy, spicy_options, " +
+                "recommendation, notes FROM menu WHERE status <> 'OFF_SHELF' ORDER BY id";
+        return jdbcTemplate.query(customerSql, (rs, rowNum) -> new MenuItem(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getDouble("price"),
+                rs.getString("description"),
+                rs.getString("status"),
+                rs.getBoolean("can_choose_spicy"),
+                parseOptions(rs.getString("spicy_options")),
+                rs.getString("recommendation"),
+                rs.getString("notes")
+        ));
+    }
+
+    private static List<String> parseOptions(String raw) {
+        if (raw == null || raw.isBlank()) {
+            return List.of();
+        }
+        return Arrays.stream(raw.split(","))
+                .map(String::trim)
+                .filter(value -> !value.isEmpty())
+                .toList();
     }
 }

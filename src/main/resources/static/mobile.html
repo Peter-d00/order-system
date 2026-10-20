@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手机访问 · 小饭馆</title>
+<style>
+  :root { --bg: #0e0d0b; --ink: #f4ede2; --muted: #a29384; --gold: #d8a34a; --line: #332b23; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+  main {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+  }
+  .mark {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 18px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    display: grid;
+    place-items: center;
+    font-family: "Songti SC", "SimSun", serif;
+    font-size: 26px;
+  }
+  h1 {
+    font-family: "Songti SC", "SimSun", serif;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+  .desc { color: var(--muted); font-size: 13px; line-height: 1.8; margin: 10px 0 22px; }
+  .qr {
+    width: 260px;
+    height: 260px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+  }
+  .url {
+    margin-top: 18px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--gold);
+    font-size: 13px;
+    word-break: break-all;
+  }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="mark">小</div>
+  <h1>手机扫码访问</h1>
+  <p class="desc">手机与电脑连接同一个 Wi-Fi，扫描二维码即可开始点餐。</p>
+  <img class="qr" src="/images/mobile-qr.png" alt="手机访问二维码">
+  <div class="url">http://192.168.5.205:8080/?table=A01</div>
+  <p class="hint">如果打不开，检查手机是否和电脑在同一 Wi-Fi。</p>
+</main>
+</body>
+</html>
