@@ -1,0 +1,2 @@
+# GitHub 语言统计以 Java 后端为主；前端静态页面不计入语言占比
+src/main/resources/static/** linguist-detectable=false
