@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商家登录 · 小饭馆</title>
+<link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<main class="login-shell">
+  <div class="brand">
+    <span class="mark">小</span>
+    <div>
+      <h1>商家登录</h1>
+      <p>小饭馆 · 后厨工作台</p>
+    </div>
+  </div>
+
+  <form id="loginForm" class="login-form">
+    <label>
+      <span>用户名</span>
+      <input id="username" autocomplete="username" placeholder="请输入用户名" required>
+    </label>
+    <label>
+      <span>密码</span>
+      <input id="password" type="password" autocomplete="current-password" placeholder="请输入密码" required>
+    </label>
+    <button class="primary" type="submit" id="loginBtn">登录</button>
+    <p id="error" class="error hidden"></p>
+  </form>
+
+  <a class="back" href="/">返回顾客点餐页</a>
+</main>
+<script src="/js/login.js"></script>
+</body>
+</html>
