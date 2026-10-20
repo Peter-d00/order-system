@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商家订单 · 小饭馆</title>
+<link rel="stylesheet" href="/css/merchant.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">小</span>
+    <div>
+      <h1>商家订单</h1>
+      <p>小饭馆 · 后厨工作台</p>
+    </div>
+  </div>
+  <div class="top-right">
+    <div class="live"><span class="dot"></span>自动刷新</div>
+    <button id="soundBtn" class="sound-btn" onclick="toggleSound()">提示音：开</button>
+    <a class="menu-link" href="/menu-admin.html">菜品管理</a>
+    <span id="merchantUser" class="user-chip">商家</span>
+    <button class="logout" onclick="logout()">退出</button>
+  </div>
+</header>
+
+<div id="newOrderBanner" class="new-order-banner hidden" onclick="focusPending()">
+  有 <b id="newOrderCount">0</b> 个新订单 · 点击查看
+</div>
+
+<main>
+  <section class="stats">
+    <div class="stat"><span>待接单</span><b id="countPending">0</b></div>
+    <div class="stat"><span>制作中</span><b id="countPreparing">0</b></div>
+    <div class="stat"><span>已完成</span><b id="countDone">0</b></div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" data-status="ALL">全部</button>
+    <button class="tab" data-status="PENDING">待接单</button>
+    <button class="tab" data-status="PREPARING">制作中</button>
+    <button class="tab" data-status="DONE">已完成</button>
+  </nav>
+
+  <div class="toolbar">
+    <span id="updatedAt" class="muted">加载中…</span>
+    <button class="refresh" onclick="loadOrders()">刷新</button>
+  </div>
+
+  <div id="orders" class="orders"></div>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="/js/merchant.js"></script>
+</body>
+</html>
