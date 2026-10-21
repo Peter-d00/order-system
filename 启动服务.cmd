@@ -1,5 +1,12 @@
 @echo off
 cd /d "%~dp0"
+netstat -ano | findstr /R /C:":8080 .*LISTENING" >nul
+if not errorlevel 1 (
+  echo order-system is already running.
+  start "" "http://localhost:8080/hub.html"
+  pause
+  exit /b 0
+)
 set "JAR=target\order-system-0.0.1-SNAPSHOT.jar"
 if not exist "%JAR%" (
   echo Build not found. Run: mvn package
